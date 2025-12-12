@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Brick Store – LEGO® Sets</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@300;400;500;600;700&family=Anton&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --lego-red: #e3000b;
+      --lego-yellow: #ffd500;
+      --lego-blue: #006cb7;
+      --lego-green: #00963e;
+      --lego-grey: #bababa;
+      --bg: #022349;
+      --text-main: #111;
+      --shadow: 0 4px 12px rgba(0,0,0,0.15);
+      --transition: all 0.3s ease;
+      --border-radius: 12px;
+      --font-main: 'Proxima Nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      font-size: 18px;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Anton', sans-serif;
+      letter-spacing: 0.05em;
+    }
+
+    /* HEADER */
+
+    header {
+      background: #ffffff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .lego-logo-header {
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+    }
+
+    .brand-text h1 {
+      font-size: 2.4rem;
+      color: var(--lego-red);
+      line-height: 1.1;
+    }
+
+    .brand-text span {
+      font-size: 0.95rem;
+      display: block;
+      margin-top: 0.15rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav-tab {
+      background: #f3f3f3;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      transition: var(--transition);
+      border: none;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .nav-tab.active,
+    .nav-tab:hover {
+      background: var(--lego-red);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .cart-button {
+      background: var(--lego-red);
+      color: #fff;
+      padding: 0.8rem 1.6rem;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 60vh;
+      background: linear-gradient(135deg, #0085ff, #00b36b);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+    }
+
+    .hero-inner {
+      max-width: 1300px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero h2 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 520px;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-cta button {
+      padding: 1rem 2.4rem;
+      border: none;
+      border-radius: 999px;
+      margin: 0.4rem;
+      cursor: pointer;
+      font-size: 1.05rem;
+      font-weight: 700;
+      box-shadow: var(--shadow);
+    }
+
+    #hero-shop-all {
+      background: #fff;
+      color: var(--lego-blue);
+    }
+
+    #hero-star-wars {
+      background: #111;
+      color: #fff;
+    }
+
+    .hero-images {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      justify-items: center;
+    }
+
+    .hero-images img {
+      width: 100%;
+      max-width: 260px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      background: #fff;
+    }
+
+    /* CATALOG */
+
+    .catalog {
+      max-width: 1400px;
+      margin: 2.5rem auto 3.5rem;
+      padding: 0 2rem;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      overflow-x: auto;
+    }
+
+    .filter-tab {
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--lego-grey);
+      background: #fff;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .filter-tab.active {
+      background: var(--lego-red);
+      color: #fff;
+    }
+
+    .search-box input {
+      padding: 0.85rem 1.4rem;
+      border: 1px solid var(--lego-grey);
+      border-radius: 999px;
+      width: 320px;
+      font-size: 0.95rem;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.7rem;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .product-image {
+      height: 260px;
+      background: #f9f9f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-image img { max-height: 80%; max-width: 80%; }
+
+    .product-title {
+      padding: 1rem 1.1rem;
+      font-weight: 700;
+      font-size: 1.05rem;
+      flex-grow: 1;
+    }
+
+    .product-meta {
+      padding: 0 1.1rem;
+      color: #666;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    .age-badge {
+      background: var(--lego-yellow);
+      color: #000;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .product-price {
+      padding: 1rem 1.1rem;
+      font-size: 1.5rem;
+      color: var(--lego-red);
+      font-weight: 800;
+      text-align: center;
+      border-top: 1px solid #eee;
+    }
+
+    .product-actions {
+      padding: 1rem;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn-add,
+    .btn-details {
+      flex: 1;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.98rem;
+      font-weight: 700;
+    }
+
+    .btn-add {
+      background: var(--lego-red);
+      color: #fff;
+    }
+
+    .btn-details {
+      background: #222;
+      color: #fff;
+    }
+
+    /* DETAIL PAGE */
+
+    .product-detail {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .detail-image img {
+      width: 100%;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      background: #fff;
+    }
+
+    .detail-title {
+      font-size: 2.7rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-theme {
+      font-size: 1.2rem;
+      color: var(--lego-blue);
+      margin-bottom: 1rem;
+    }
+
+    .detail-price {
+      font-size: 2.1rem;
+      color: var(--lego-red);
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+
+    .detail-age {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .detail-description {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      color: #333;
+    }
+
+    .detail-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    /* CHECKOUT */
+
+    .checkout-page {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 2rem 4rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 380px);
+      gap: 3rem;
+    }
+
+    .checkout-main {
+      background: #ffffff;
+      padding: 2.8rem 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+
+    .checkout-sidebar {
+      background: #f9f9f9;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      font-size: 0.98rem;
+    }
+
+    .checkout-steps {
+      display: flex;
+      margin-bottom: 2rem;
+      color: #999;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .step {
+      flex: 1;
+      text-align: center;
+    }
+
+    .step.active {
+      color: var(--lego-red);
+      font-weight: 800;
+    }
+
+    .checkout-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .checkout-section h3 {
+      margin-bottom: 1rem;
+      font-size: 1.6rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .form-full {
+      grid-column: 1 / -1;
+      margin-top: 0.75rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 1.05rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.45rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 1.5rem 0 0.3rem;
+      font-size: 0.95rem;
+    }
+
+    .checkbox input {
+      width: 18px;
+      height: 18px;
+    }
+
+    .paypal-button {
+      background: #ffc439;
+      color: #002d72;
+      padding: 1.4rem;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      border-radius: 999px;
+      cursor: pointer;
+      margin-top: 1.5rem;
+      border: none;
+      width: 100%;
+      box-shadow: var(--shadow);
+    }
+
+    .paypal-button:hover {
+      background: #ffb000;
+      transform: translateY(-1px);
+    }
+
+    .checkout-sidebar h3 {
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+
+    .checkout-sidebar > div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #01152e;
+      font-size: 0.8rem;
+      color: #ccc;
+      border-top: 1px solid #02152e;
+      margin-top: 2rem;
+    }
+
+    .legal-line {
+      max-width: 800px;
+      margin: 1rem auto 0;
+      opacity: 0.9;
+    }
+
+    .hidden { display: none; }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-images {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .checkout-page,
+      .product-detail {
+        grid-template-columns: 1fr;
+      }
+
+      .checkout-sidebar {
+        position: static;
+      }
+
+      .search-box input {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero h2 { font-size: 3rem; }
+      .brand-text h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/512px-LEGO_logo.svg.png"
+      alt="LEGO® logo"
+      class="lego-logo-header"
+    >
+    <div class="brand-text">
+      <h1>The Brick Store</h1>
+      <span>Independent Online Retailer of LEGO® Sets</span>
+    </div>
+  </div>
+  <nav>
+    <button class="nav-tab active" data-target="all">All Sets</button>
+    <button class="nav-tab" data-target="despicableme">Despicable Me</button>
+    <button class="nav-tab" data-target="animalcrossing">Animal Crossing</button>
+    <button class="nav-tab" data-target="architecture">Architecture</button>
+    <button class="nav-tab" data-target="batman">Batman™</button>
+    <button class="nav-tab" data-target="botanical">Botanicals</button>
+    <button class="nav-tab" data-target="city">City</button>
+    <button class="nav-tab" data-target="dc">DC</button>
+    <button class="nav-tab" data-target="disney">Disney</button>
+    <button class="nav-tab" data-target="lotr">Lord of the Rings™</button>
+    <button class="nav-tab" data-target="marvel">Marvel</button>
+    <button class="nav-tab" data-target="starwars">Star Wars™</button>
+    <button class="cart-button" id="go-checkout">Cart <span id="cart-count">0</span></button>
+  </nav>
+</header>
+
+<section class="hero" id="hero-section">
+  <div class="hero-inner">
+    <div>
+      <h2>Discover Authentic LEGO® Sets</h2>
+      <p>Shop current collections from The Brick Store – secure PayPal checkout and fast shipping.</p>
+      <div class="hero-cta">
+        <button id="hero-shop-all">Shop All Sets</button>
+        <button id="hero-star-wars">Star Wars™</button>
+      </div>
+    </div>
+    <div class="hero-images">
+      <img src="https://images.brickset.com/sets/images/75375-1.jpg" alt="LEGO Star Wars Millennium Falcon">
+      <img src="https://images.brickset.com/sets/images/21063-1.jpg" alt="LEGO Architecture Neuschwanstein Castle">
+      <img src="https://images.brickset.com/sets/images/10374-1.jpg" alt="LEGO Botanical Roses">
+      <img src="https://images.brickset.com/sets/images/77048-1.jpg" alt="LEGO Animal Crossing Kapp'n Boat">
+    </div>
+  </div>
+</section>
+
+<section class="catalog" id="catalog-section">
+  <div class="filters">
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-category="all">All</button>
+      <button class="filter-tab" data-category="despicableme">Despicable Me</button>
+      <button class="filter-tab" data-category="animalcrossing">Animal Crossing</button>
+      <button class="filter-tab" data-category="architecture">Architecture</button>
+      <button class="filter-tab" data-category="batman">Batman™</button>
+      <button class="filter-tab" data-category="botanical">Botanicals</button>
+      <button class="filter-tab" data-category="city">City</button>
+      <button class="filter-tab" data-category="dc">DC</button>
+      <button class="filter-tab" data-category="disney">Disney</button>
+      <button class="filter-tab" data-category="lotr">Lord of the Rings™</button>
+      <button class="filter-tab" data-category="marvel">Marvel</button>
+      <button class="filter-tab" data-category="starwars">Star Wars™</button>
+    </div>
+    <div class="search-box">
+      <input type="search" id="search-input" placeholder="Search by name or set number...">
+    </div>
+  </div>
+  <div id="product-grid" class="product-grid"></div>
+</section>
+
+<section id="product-detail" class="product-detail hidden">
+  <div class="crumbs">
+    <a href="#home" id="detail-back-link">← Back to Catalog</a>
+  </div>
+  <div class="detail-layout">
+    <div class="detail-image">
+      <img id="detail-image" src="" alt="">
+    </div>
+    <div class="detail-info">
+      <div class="detail-title" id="detail-title"></div>
+      <div class="detail-theme" id="detail-theme"></div>
+      <div class="detail-price" id="detail-price"></div>
+      <div class="detail-age" id="detail-age"></div>
+      <p class="detail-description" id="detail-description"></p>
+      <div class="detail-actions">
+        <button class="btn-add" id="detail-add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="checkout-page" class="checkout-page hidden">
+  <div class="checkout-main">
+    <div class="checkout-steps">
+      <div class="step active">1. Information</div>
+      <div class="step">2. Shipping</div>
+      <div class="step">3. Payment</div>
+    </div>
+    <form id="checkout-form">
+      <div class="checkout-section">
+        <h3>Contact Information</h3>
+        <label for="co-email">Email</label>
+        <input type="email" id="co-email" required placeholder="you@example.com">
+      </div>
+
+      <div class="checkout-section">
+        <h3>Shipping Address</h3>
+        <div class="form-grid">
+          <div>
+            <label for="ship-first">First Name</label>
+            <input type="text" id="ship-first" required placeholder="First name">
+          </div>
+          <div>
+            <label for="ship-last">Last Name</label>
+            <input type="text" id="ship-last" required placeholder="Last name">
+          </div>
+        </div>
+
+        <div class="form-full">
+          <label for="ship-address1">Address</label>
+          <input type="text" id="ship-address1" required placeholder="Street address">
+        </div>
+
+        <div class="form-full">
+          <label for="ship-address2">Apartment, suite, etc. (optional)</label>
+          <input type="text" id="ship-address2" placeholder="Apt, suite, unit, building (optional)">
+        </div>
+
+        <div class="form-grid">
+          <div>
+            <label for="ship-city">City</label>
+            <input type="text" id="ship-city" required placeholder="City">
+          </div>
+          <div>
+            <label for="ship-state">State</label>
+            <input type="text" id="ship-state" required placeholder="State">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div>
+            <label for="ship-zip">ZIP Code</label>
+            <input type="text" id="ship-zip" required placeholder="ZIP / Postal code">
+          </div>
+          <div>
+            <label for="ship-country">Country</label>
+            <input type="text" id="ship-country" required placeholder="Country">
+          </div>
+        </div>
+
+        <div class="form-full">
+          <label for="ship-notes">Delivery Instructions (optional)</label>
+          <textarea id="ship-notes" rows="3" placeholder="Gate code, where to leave packages, etc."></textarea>
+        </div>
+      </div>
+
+      <div class="checkout-section">
+        <h3>Billing Address</h3>
+        <div class="checkbox">
+          <input type="checkbox" id="same-as-shipping" checked>
+          <label for="same-as-shipping">Same as shipping</label>
+        </div>
+        <div id="billing-fields" style="display: none;">
+          <div class="form-grid">
+            <div>
+              <label for="bill-first">First Name</label>
+              <input type="text" id="bill-first" placeholder="First name">
+            </div>
+            <div>
+              <label for="bill-last">Last Name</label>
+              <input type="text" id="bill-last" placeholder="Last name">
+            </div>
+          </div>
+
+          <div class="form-full">
+            <label for="bill-address1">Address</label>
+            <input type="text" id="bill-address1" placeholder="Street address">
+          </div>
+
+          <div class="form-full">
+            <label for="bill-address2">Apartment, suite, etc. (optional)</label>
+            <input type="text" id="bill-address2" placeholder="Apt, suite, unit, building (optional)">
+          </div>
+
+          <div class="form-grid">
+            <div>
+              <label for="bill-city">City</label>
+              <input type="text" id="bill-city" placeholder="City">
+            </div>
+            <div>
+              <label for="bill-state">State</label>
+              <input type="text" id="bill-state" placeholder="State">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div>
+              <label for="bill-zip">ZIP Code</label>
+              <input type="text" id="bill-zip" placeholder="ZIP / Postal code">
+            </div>
+            <div>
+              <label for="bill-country">Country</label>
+              <input type="text" id="bill-country" placeholder="Country">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="paypal-button">Complete Order with PayPal</button>
+    </form>
+  </div>
+  <div class="checkout-sidebar">
+    <h3>Order Summary</h3>
+    <div id="checkout-items"></div>
+    <div style="margin-top:1rem; padding-top:1rem; border-top:2px solid var(--lego-red); font-size:1.4rem; font-weight:700;">
+      Total: <span id="checkout-total">$0.00</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>The Brick Store is an independent retailer and is not affiliated with or endorsed by the LEGO Group.</p>
+  <div class="legal-line">
+    LEGO®, the LEGO logo, the Minifigure, DUPLO®, the DUPLO logo, the DREAMZzz logo, the FRIENDS logo, the MINIFIGURES logo, the HIDDEN SIDE logo, MINDSTORMS, the MINDSTORMS EV3 logo, NINJAGO, the NINJAGO logo, VIDIIYO, the VIDIIYO logo, NEXO KNIGHTS, and the NEXO KNIGHTS logo are trademarks and/or copyrights of the LEGO Group. ©2025 the LEGO Group. All rights reserved.
+  </div>
+</footer>
+
+<script>
+const products = [
+  // Despicable Me (3 sets)
+  { id: "75582", name: "Brick-Built Gru and Minions", theme: "Despicable Me", category: "despicableme", price: 54.99, age: "9+", image: "https://images.brickset.com/sets/images/75582-1.jpg", description: "A LEGO set featuring brick-built figures of Gru and Minions for creative play." },
+  { id: "75581", name: "Minions' Music Party Bus", theme: "Despicable Me", category: "despicableme", price: 39.99, age: "7+", image: "https://images.brickset.com/sets/images/75581-1.jpg", description: "A fun LEGO set with a party bus for Minions, including music-themed elements." },
+  { id: "75580", name: "Minions and Banana Car", theme: "Despicable Me", category: "despicableme", price: 24.99, age: "6+", image: "https://images.brickset.com/sets/images/75580-1.jpg", description: "A LEGO set featuring Minions with a banana-shaped car for imaginative adventures." },
+  // Animal Crossing (10 sets)
+  { id: "77056", name: "Blathers's Museum Collection", theme: "Animal Crossing", category: "animalcrossing", price: 79.99, age: "7+", image: "https://images.brickset.com/sets/images/77056-1.jpg", description: "Build your own set of iconic locations like Nook’s Cranny and the campsite. Role-play your own stories with characters Isabelle, Tom Nook, Kapp’n, and more!" },
+  { id: "77053", name: "Stargazing with Celeste", theme: "Animal Crossing", category: "animalcrossing", price: 9.99, age: "6+", image: "https://images.brickset.com/sets/images/77053-1.jpg", description: "Create and customize your own Animal Crossing™ world with these imaginative LEGO® sets inspired by the video game series." },
+  { id: "77058", name: "Goldie's Cozy House", theme: "Animal Crossing", category: "animalcrossing", price: 22.99, age: "6+", image: "https://images.brickset.com/sets/images/77058-1.jpg", description: "Build your own set of iconic locations like Nook’s Cranny and the campsite. Role-play your own stories with characters Isabelle, Tom Nook, Kapp’n, and more!" },
+  { id: "77057", name: "Creative Houses: Seasons of Fun", theme: "Animal Crossing", category: "animalcrossing", price: 89.99, age: "7+", image: "https://images.brickset.com/sets/images/77057-1.jpg", description: "Create and customize your own Animal Crossing™ world with these imaginative LEGO® sets inspired by the video game series." },
+  { id: "77054", name: "Leif's Caravan & Garden Shop", theme: "Animal Crossing", category: "animalcrossing", price: 29.99, age: "7+", image: "https://images.brickset.com/sets/images/77054-1.jpg", description: "Build your own set of iconic locations like Nook’s Cranny and the campsite. Role-play your own stories with characters Isabelle, Tom Nook, Kapp’n, and more!" },
+  { id: "77055", name: "Able Sisters Clothing Shop", theme: "Animal Crossing", category: "animalcrossing", price: 39.99, age: "6+", image: "https://images.brickset.com/sets/images/77055-1.jpg", description: "Create and customize your own Animal Crossing™ world with these imaginative LEGO® sets inspired by the video game series." },
+  { id: "77048", name: "Kapp'n's Island Boat Tour", theme: "Animal Crossing", category: "animalcrossing", price: 29.99, age: "6+", image: "https://images.brickset.com/sets/images/77048-1.jpg", description: "Role-play your own stories with characters Isabelle, Tom Nook, Kapp’n, and more! A perfect gift for all Animal Crossing™ fans." },
+  { id: "77050", name: "Nook's Cranny & Rosie's House", theme: "Animal Crossing", category: "animalcrossing", price: 44.99, age: "7+", image: "https://images.brickset.com/sets/images/77050-1.jpg", description: "Build your own set of iconic locations like Nook’s Cranny and the campsite. Role-play your own stories with characters Isabelle, Tom Nook, Kapp’n, and more!" },
+  { id: "77046", name: "Julian's Birthday Party", theme: "Animal Crossing", category: "animalcrossing", price: 14.99, age: "6+", image: "https://images.brickset.com/sets/images/77046-1.jpg", description: "Create and customize your own Animal Crossing™ world with these imaginative LEGO® sets inspired by the video game series." },
+  { id: "77051", name: "Fly with Dodo Airlines", theme: "Animal Crossing", category: "animalcrossing", price: 22.79, age: "7+", image: "https://images.brickset.com/sets/images/77051-1.jpg", description: "Build your own set of iconic locations like Nook’s Cranny and the campsite. Role-play your own stories with characters Isabelle, Tom Nook, Kapp’n, and more!" },
+  // Architecture (9 sets)
+  { id: "21063", name: "Neuschwanstein Castle", theme: "Architecture", category: "architecture", price: 279.99, age: "18+", image: "https://images.brickset.com/sets/images/21063-1.jpg", description: "LEGO Architecture set featuring Neuschwanstein Castle, a famous landmark." },
+  { id: "21064", name: "Paris – City of Love", theme: "Architecture", category: "architecture", price: 79.99, age: "18+", image: "https://images.brickset.com/sets/images/21064-1.jpg", description: "LEGO Architecture set representing Paris, the City of Love." },
+  { id: "21062", name: "Trevi Fountain", theme: "Architecture", category: "architecture", price: 159.99, age: "18+", image: "https://images.brickset.com/sets/images/21062-1.jpg", description: "LEGO Architecture set of the iconic Trevi Fountain in Rome." },
+  { id: "21061", name: "Notre-Dame de Paris", theme: "Architecture", category: "architecture", price: 229.99, age: "18+", image: "https://images.brickset.com/sets/images/21061-1.jpg", description: "LEGO Architecture set depicting the Notre-Dame Cathedral in Paris." },
+  { id: "21034", name: "London", theme: "Architecture", category: "architecture", price: 39.99, age: "12+", image: "https://images.brickset.com/sets/images/21034-1.jpg", description: "LEGO Architecture set showcasing the city of London." },
+  { id: "21042", name: "Statue of Liberty", theme: "Architecture", category: "architecture", price: 119.99, age: "16+", image: "https://images.brickset.com/sets/images/21042-1.jpg", description: "LEGO Architecture set of the Statue of Liberty in New York." },
+  { id: "21060", name: "Himeji Castle", theme: "Architecture", category: "architecture", price: 159.99, age: "18+", image: "https://images.brickset.com/sets/images/21060-1.jpg", description: "LEGO Architecture set featuring the historic Himeji Castle in Japan." },
+  { id: "21058", name: "Great Pyramid of Giza", theme: "Architecture", category: "architecture", price: 129.99, age: "18+", image: "https://images.brickset.com/sets/images/21058-1.jpg", description: "LEGO Architecture set of the ancient Great Pyramid of Giza." },
+  { id: "21044", name: "Paris", theme: "Architecture", category: "architecture", price: 49.99, age: "12+", image: "https://images.brickset.com/sets/images/21044-1.jpg", description: "LEGO Architecture set representing the city of Paris." },
+  // Batman (10 sets)
+  { id: "76300", name: "Arkham Asylum™", theme: "Batman™", category: "batman", price: 299.99, age: "18+", image: "https://images.brickset.com/sets/images/76300-1.jpg", description: "A large-scale LEGO set featuring the iconic Arkham Asylum from the Batman universe." },
+  { id: "76330", name: "Batman™ Logo", theme: "Batman™", category: "batman", price: 79.99, age: "12+", image: "https://images.brickset.com/sets/images/76330-1.jpg", description: "A display piece showcasing the Batman logo for fans to build and admire." },
+  { id: "76328", name: "Batman™: The Classic TV Series Batmobile™", theme: "Batman™", category: "batman", price: 149.99, age: "18+", image: "https://images.brickset.com/sets/images/76328-1.jpg", description: "A detailed recreation of the Batmobile from the classic Batman TV series." },
+  { id: "76304", name: "Batman Forever™ Batmobile™", theme: "Batman™", category: "batman", price: 99.99, age: "12+", image: "https://images.brickset.com/sets/images/76304-1.jpg", description: "A buildable Batmobile inspired by the Batman Forever movie." },
+  { id: "854235", name: "Batman™ Key Chain", theme: "Batman™", category: "batman", price: 5.99, age: "6+", image: "https://images.brickset.com/sets/images/854235-1.jpg", description: "A small Batman-themed key chain for everyday use." },
+  { id: "76303", name: "Batman™ Tumbler vs. Two-Face™ & The Joker™", theme: "Batman™", category: "batman", price: 59.99, age: "8+", image: "https://images.brickset.com/sets/images/76303-1.jpg", description: "An action-packed set with the Batmobile Tumbler facing off against Two-Face and The Joker." },
+  { id: "76331", name: "Batman v Superman™ Batmobile™", theme: "Batman™", category: "batman", price: 29.99, age: "9+", image: "https://images.brickset.com/sets/images/76331-1.jpg", description: "A compact Batmobile set based on the Batman v Superman film." },
+  { id: "854238", name: "Harley Quinn™ Key Chain", theme: "Batman™", category: "batman", price: 4.19, age: "6+", image: "https://images.brickset.com/sets/images/854238-1.jpg", description: "A discounted Harley Quinn-themed key chain." },
+  { id: "40748", name: "Batman™ 8in1 Figure", theme: "Batman™", category: "batman", price: 24.99, age: "10+", image: "https://images.brickset.com/sets/images/40748-1.jpg", description: "An 8-in-1 buildable Batman figure for creative play." },
+  { id: "76332", name: "The Batman™ Batmobile™", theme: "Batman™", category: "batman", price: 29.99, age: "9+", image: "https://images.brickset.com/sets/images/76332-1.jpg", description: "A Batmobile inspired by the movie The Batman." },
+  // Botanicals (10 sets)
+  { id: "10349", name: "Happy Plants", theme: "Botanical Collection", category: "botanical", price: 22.99, age: "9+", image: "https://images.brickset.com/sets/images/10349-1.jpg", description: "Create your own floral arrangement with our range of flowers and plants from the LEGO® Botanical Collection. Perfect for adding a natural touch to your home décor." },
+  { id: "10372", name: "Hibiscus", theme: "Botanical Collection", category: "botanical", price: 69.99, age: "18+", image: "https://images.brickset.com/sets/images/10372-1.jpg", description: "Create your own floral arrangement with our range of flowers and plants from the LEGO® Botanical Collection. Perfect for adding a natural touch to your home décor." },
+  { id: "10343", name: "Mini Orchid", theme: "Botanical Collection", category: "botanical", price: 29.99, age: "18+", image: "https://images.brickset.com/sets/images/10343-1.jpg", description: "Create your own floral arrangement with our range of flowers and plants from the LEGO® Botanical Collection. Perfect for adding a natural touch to your home décor." },
+  { id: "10348", name: "Japanese Red Maple Bonsai Tree", theme: "Botanical Collection", category: "botanical", price: 59.99, age: "18+", image: "https://images.brickset.com/sets/images/10348-1.jpg", description: "Create your own floral arrangement with our range of flowers and plants from the LEGO® Botanical Collection. Perfect for adding a natural touch to your home décor." },
+  { id: "10373", name: "Mini Bonsai Trees", theme: "Botanical Collection", category: "botanical", price: 64.99, age: "18+", image: "https://images.brickset.com/sets/images/10373-1.jpg", description: "Create your own floral arrangement with our range of flowers and plants from the LEGO® Botanical Collection. Perfect for adding a natural touch to your home décor." },
+  { id: "10374", name: "Bouquet of Pink Roses", theme: "Botanical Collection", category: "botanical", price: 59.99, age: "18+", image: "https://images.brickset.com/sets/images/10374-1.jpg", description: "Create your own floral arrangement with our range of flowers and plants from the LEGO® Botanical Collection. Perfect for adding a natural touch to your home décor." },
+  { id: "10329", name: "Tiny Plants", theme: "Botanical Collection", category: "botanical", price: 49.99, age: "18+", image: "https://images.brickset.com/sets/images/10329-1.jpg", description: "Create your own floral arrangement with our range of flowers and plants from the LEGO® Botanical Collection. Perfect for adding a natural touch to your home décor." },
+  { id: "11501", name: "Tulip Bouquet", theme: "Botanical Collection", category: "botanical", price: 59.99, age: "18+", image: "https://images.brickset.com/sets/images/11501-1.jpg", description: "Create your own floral arrangement with our range of flowers and plants from the LEGO® Botanical Collection. Perfect for adding a natural touch to your home décor." },
+  { id: "10311", name: "Orchid", theme: "Botanical Collection", category: "botanical", price: 49.99, age: "18+", image: "https://images.brickset.com/sets/images/10311-1.jpg", description: "Create your own floral arrangement with our range of flowers and plants from the LEGO® Botanical Collection. Perfect for adding a natural touch to your home décor." },
+  { id: "10369", name: "Plum Blossom", theme: "Botanical Collection", category: "botanical", price: 29.99, age: "18+", image: "https://images.brickset.com/sets/images/10369-1.jpg", description: "Create your own floral arrangement with our range of flowers and plants from the LEGO® Botanical Collection. Perfect for adding a natural touch to your home décor." },
+  // City (10 sets)
+  { id: "60470", name: "Explorers' Arctic Polar Express Train", theme: "City", category: "city", price: 209.99, age: "7+", image: "https://images.brickset.com/sets/images/60470-1.jpg", description: "A train set for arctic exploration adventures." },
+  { id: "60498", name: "Tractor", theme: "City", category: "city", price: 19.99, age: "6+", image: "https://images.brickset.com/sets/images/60498-1.jpg", description: "A toy tractor for city-themed play." },
+  { id: "60479", name: "Police Prisoner Transport Van", theme: "City", category: "city", price: 19.99, age: "6+", image: "https://images.brickset.com/sets/images/60479-1.jpg", description: "A van for police prisoner transport scenarios." },
+  { id: "60489", name: "Jet vs. Car", theme: "City", category: "city", price: 29.99, age: "6+", image: "https://images.brickset.com/sets/images/60489-1.jpg", description: "A set featuring a jet and car in action." },
+  { id: "60466", name: "Yellow Bulldozer", theme: "City", category: "city", price: 64.99, age: "8+", image: "https://images.brickset.com/sets/images/60466-1.jpg", description: "A yellow bulldozer for construction play." },
+  { id: "60454", name: "Holiday Adventure Camper Van", theme: "City", category: "city", price: 29.99, age: "6+", image: "https://images.brickset.com/sets/images/60454-1.jpg", description: "A camper van for holiday-themed adventures." },
+  { id: "60502", name: "Airport with Airplane", theme: "City", category: "city", price: 99.99, age: "8+", image: "https://images.brickset.com/sets/images/60502-1.jpg", description: "An airport set with an airplane included." },
+  { id: "60500", name: "The LEGO® Van", theme: "City", category: "city", price: 29.99, age: "6+", image: "https://images.brickset.com/sets/images/60500-1.jpg", description: "A van set for city exploration." },
+  { id: "60452", name: "Donut Truck", theme: "City", category: "city", price: 19.99, age: "5+", image: "https://images.brickset.com/sets/images/60452-1.jpg", description: "A food truck specializing in donuts." },
+  { id: "60508", name: "Police Train Heist", theme: "City", category: "city", price: 199.99, age: "7+", image: "https://images.brickset.com/sets/images/60508-1.jpg", description: "A police-themed train heist set." },
+  // DC (10 sets)
+  { id: "76300_dc", name: "Arkham Asylum™", theme: "DC Super Heroes", category: "dc", price: 299.99, age: "18+", image: "https://images.brickset.com/sets/images/76300-1.jpg", description: "A detailed LEGO set recreating the iconic Arkham Asylum from the DC universe." },
+  { id: "76328_dc", name: "Batman™: The Classic TV Series Batmobile™", theme: "DC Super Heroes", category: "dc", price: 149.99, age: "18+", image: "https://images.brickset.com/sets/images/76328-1.jpg", description: "A collectible Batmobile inspired by the classic Batman TV series." },
+  { id: "76330_dc", name: "Batman™ Logo", theme: "DC Super Heroes", category: "dc", price: 79.99, age: "12+", image: "https://images.brickset.com/sets/images/76330-1.jpg", description: "A LEGO set featuring the iconic Batman logo for display." },
+  { id: "76303_dc", name: "Batman™ Tumbler vs. Two-Face™ & The Joker™", theme: "DC Super Heroes", category: "dc", price: 59.99, age: "8+", image: "https://images.brickset.com/sets/images/76303-1.jpg", description: "An action-packed set with the Batmobile Tumbler facing off against Two-Face and The Joker." },
+  { id: "76304_dc", name: "Batman Forever™ Batmobile™", theme: "DC Super Heroes", category: "dc", price: 99.99, age: "12+", image: "https://images.brickset.com/sets/images/76304-1.jpg", description: "A LEGO recreation of the Batmobile from the Batman Forever movie." },
+  { id: "76331_dc", name: "Batman v Superman™ Batmobile™", theme: "DC Super Heroes", category: "dc", price: 29.99, age: "9+", image: "https://images.brickset.com/sets/images/76331-1.jpg", description: "A compact Batmobile set based on the Batman v Superman film." },
+  { id: "854235_dc", name: "Batman™ Key Chain", theme: "DC Super Heroes", category: "dc", price: 5.99, age: "6+", image: "https://images.brickset.com/sets/images/854235-1.jpg", description: "A small Batman-themed key chain for everyday use." },
+  { id: "854238_dc", name: "Harley Quinn™ Key Chain", theme: "DC Super Heroes", category: "dc", price: 4.19, age: "6+", image: "https://images.brickset.com/sets/images/854238-1.jpg", description: "A discounted Harley Quinn-themed key chain." },
+  { id: "40748_dc", name: "Batman™ 8in1 Figure", theme: "DC Super Heroes", category: "dc", price: 24.99, age: "10+", image: "https://images.brickset.com/sets/images/40748-1.jpg", description: "A buildable Batman figure with 8 different configurations." },
+  { id: "76332_dc", name: "The Batman™ Batmobile™", theme: "DC Super Heroes", category: "dc", price: 29.99, age: "9+", image: "https://images.brickset.com/sets/images/76332-1.jpg", description: "A Batmobile set inspired by the The Batman movie." },
+  // Disney (10 sets)
+  { id: "43263", name: "Beauty and the Beast Castle", theme: "Disney", category: "disney", price: 279.99, age: "18+", image: "https://images.brickset.com/sets/images/43263-1.jpg", description: "A detailed LEGO set recreating the iconic Beauty and the Beast Castle." },
+  { id: "21357", name: "Disney Pixar Luxo Jr.", theme: "Disney", category: "disney", price: 69.99, age: "18+", image: "https://images.brickset.com/sets/images/21357-1.jpg", description: "A buildable model of the iconic Disney Pixar Luxo Jr. lamp." },
+  { id: "43279", name: "WALL-E and EVE", theme: "Disney", category: "disney", price: 69.99, age: "18+", image: "https://images.brickset.com/sets/images/43279-1.jpg", description: "A LEGO set featuring the beloved robots WALL-E and EVE from Disney Pixar." },
+  { id: "40478", name: "Mini Disney Castle", theme: "Disney", category: "disney", price: 39.99, age: "12+", image: "https://images.brickset.com/sets/images/40478-1.jpg", description: "A compact version of the classic Disney Castle in LEGO form." },
+  { id: "21351", name: "Disney Tim Burton's The Nightmare Before Christmas", theme: "Disney", category: "disney", price: 199.99, age: "18+", image: "https://images.brickset.com/sets/images/21351-1.jpg", description: "A detailed LEGO set inspired by Tim Burton's The Nightmare Before Christmas." },
+  { id: "43290", name: "Kevin & Dug", theme: "Disney", category: "disney", price: 59.99, age: "9+", image: "https://images.brickset.com/sets/images/43290-1.jpg", description: "A LEGO set featuring Kevin and Dug from Disney Pixar's Up." },
+  { id: "43272", name: "Heihei", theme: "Disney", category: "disney", price: 39.99, age: "9+", image: "https://images.brickset.com/sets/images/43272-1.jpg", description: "A buildable model of Heihei, the chicken from Disney's Moana." },
+  { id: "43286", name: "The Aristocats Adorable Marie", theme: "Disney", category: "disney", price: 34.99, age: "7+", image: "https://images.brickset.com/sets/images/43286-1.jpg", description: "A cute LEGO figure of Marie from Disney's The Aristocats." },
+  { id: "43303", name: "Mini Jasmine & Rapunzel", theme: "Disney", category: "disney", price: 9.99, age: "5+", image: "https://images.brickset.com/sets/images/43303-1.jpg", description: "Mini LEGO figures of Jasmine and Rapunzel from Disney Princess." },
+  { id: "43249", name: "Stitch", theme: "Disney", category: "disney", price: 64.99, age: "9+", image: "https://images.brickset.com/sets/images/43249-1.jpg", description: "A LEGO buildable model of Stitch from Disney's Lilo & Stitch." },
+  // Lord of the Rings (4 sets - all available)
+  { id: "10354", name: "The Lord of the Rings: The Shire™", theme: "Lord of the Rings™", category: "lotr", price: 269.99, age: "18+", image: "https://images.brickset.com/sets/images/10354-1.jpg", description: "Build and recreate iconic moments from Middle-earth with LEGO® Lord of the Rings™ sets. The fantasy world of Lord of the Rings™ is filled with legendary books, movies and the new The Lord of the Rings: The Rings of Power TV show." },
+  { id: "10333", name: "The Lord of the Rings: Barad-dûr™", theme: "Lord of the Rings™", category: "lotr", price: 459.99, age: "18+", image: "https://images.brickset.com/sets/images/10333-1.jpg", description: "Build and recreate iconic moments from Middle-earth with LEGO® Lord of the Rings™ sets. The fantasy world of Lord of the Rings™ is filled with legendary books, movies and the new The Lord of the Rings: The Rings of Power TV show." },
+  { id: "10367", name: "The Lord of the Rings: Balrog™ Book Nook", theme: "Lord of the Rings™", category: "lotr", price: 129.99, age: "18+", image: "https://images.brickset.com/sets/images/10367-1.jpg", description: "Build and recreate iconic moments from Middle-earth with LEGO® Lord of the Rings™ sets. The fantasy world of Lord of the Rings™ is filled with legendary books, movies and the new The Lord of the Rings: The Rings of Power TV show." },
+  { id: "10316", name: "THE LORD OF THE RINGS: RIVENDELL™", theme: "Lord of the Rings™", category: "lotr", price: 499.99, age: "18+", image: "https://images.brickset.com/sets/images/10316-1.jpg", description: "Build and recreate iconic moments from Middle-earth with LEGO® Lord of the Rings™ sets. The fantasy world of Lord of the Rings™ is filled with legendary books, movies and the new The Lord of the Rings: The Rings of Power TV show." },
+  // Marvel (10 sets)
+  { id: "76334", name: "Epic Battle: Spider-Man vs. Sandman", theme: "Marvel Super Heroes", category: "marvel", price: 24.99, age: "9+", image: "https://images.brickset.com/sets/images/76334-1.jpg", description: "An epic battle set featuring Spider-Man versus Sandman." },
+  { id: "76342", name: "Spider-Man vs. Mysterio: The Daily Bugle", theme: "Marvel Super Heroes", category: "marvel", price: 99.99, age: "10+", image: "https://images.brickset.com/sets/images/76342-1.jpg", description: "A detailed set recreating the Daily Bugle battle between Spider-Man and Mysterio." },
+  { id: "76343", name: "Epic Battle: Hulkbuster vs. The Hulk", theme: "Marvel Super Heroes", category: "marvel", price: 49.99, age: "9+", image: "https://images.brickset.com/sets/images/76343-1.jpg", description: "A clash between the Hulkbuster and The Hulk in this epic battle set." },
+  { id: "10463", name: "Dinosaur Spidey-Rex vs. Green Goblin", theme: "Marvel Super Heroes", category: "marvel", price: 19.99, age: "2+", image: "https://images.brickset.com/sets/images/10463-1.jpg", description: "A fun dinosaur-themed battle set featuring Spidey-Rex versus Green Goblin." },
+  { id: "76335", name: "Spider-Man vs. Ghost Rider Motorcycle", theme: "Marvel Super Heroes", category: "marvel", price: 9.99, age: "6+", image: "https://images.brickset.com/sets/images/76335-1.jpg", description: "A compact set with Spider-Man facing off against Ghost Rider on a motorcycle." },
+  { id: "76338", name: "Mech Battle: Spider-Man vs. Doc Ock", theme: "Marvel Super Heroes", category: "marvel", price: 29.99, age: "6+", image: "https://images.brickset.com/sets/images/76338-1.jpg", description: "A mech-style battle set featuring Spider-Man versus Doc Ock." },
+  { id: "76344", name: "Iron Man Mark 3 Collectors' Edition", theme: "Marvel Super Heroes", category: "marvel", price: 129.99, age: "18+", image: "https://images.brickset.com/sets/images/76344-1.jpg", description: "A collectible set featuring the iconic Iron Man Mark 3 armor." },
+  { id: "76269", name: "Avengers Tower", theme: "Marvel Super Heroes", category: "marvel", price: 499.99, age: "18+", image: "https://images.brickset.com/sets/images/76269-1.jpg", description: "A large-scale set of the iconic Avengers Tower for display." },
+  { id: "76294", name: "X-Men: The X-Mansion", theme: "Marvel Super Heroes", category: "marvel", price: 329.99, age: "18+", image: "https://images.brickset.com/sets/images/76294-1.jpg", description: "A detailed recreation of the X-Mansion, home of the X-Men team." },
+  { id: "76327", name: "Iron Man MK4 Bust", theme: "Marvel Super Heroes", category: "marvel", price: 59.99, age: "18+", image: "https://images.brickset.com/sets/images/76327-1.jpg", description: "A bust set of Iron Man in his MK4 armor for collectors." },
+  // Star Wars (20 sets)
+  { id: "75419", name: "Death Star™", theme: "Star Wars™", category: "starwars", price: 999.99, age: "18+", image: "https://images.brickset.com/sets/images/75419-1.jpg", description: "The biggest LEGO® Star Wars™ set yet is here! Build the iconic Death Star." },
+  { id: "75355", name: "X-Wing Starfighter™", theme: "Star Wars™", category: "starwars", price: 239.99, age: "18+", image: "https://images.brickset.com/sets/images/75355-1.jpg", description: "A detailed X-Wing Starfighter model." },
+  { id: "75367", name: "Venator-Class Republic Attack Cruiser™", theme: "Star Wars™", category: "starwars", price: 649.99, age: "18+", image: "https://images.brickset.com/sets/images/75367-1.jpg", description: "A massive Republic Attack Cruiser for Clone Wars fans." },
+  { id: "75409", name: "Jango Fett's Firespray-Class Starship", theme: "Star Wars™", category: "starwars", price: 299.99, age: "18+", image: "https://images.brickset.com/sets/images/75409-1.jpg", description: "Slave I starship with Jango Fett." },
+  { id: "75440", name: "AT-AT™", theme: "Star Wars™", category: "starwars", price: 64.99, age: "18+", image: "https://images.brickset.com/sets/images/75440-1.jpg", description: "Iconic Imperial Walker from The Empire Strikes Back." },
+  { id: "75452", name: "BB-8™ Astromech Droid", theme: "Star Wars™", category: "starwars", price: 89.99, age: "10+", image: "https://images.brickset.com/sets/images/75452-1.jpg", description: "Buildable BB-8 droid from The Force Awakens." },
+  { id: "75328", name: "The Mandalorian™ Helmet", theme: "Star Wars™", category: "starwars", price: 69.99, age: "18+", image: "https://images.brickset.com/sets/images/75328-1.jpg", description: "Display helmet of The Mandalorian." },
+  { id: "75441", name: "Venator-Class Attack Cruiser™", theme: "Star Wars™", category: "starwars", price: 79.99, age: "18+", image: "https://images.brickset.com/sets/images/75441-1.jpg", description: "Republic cruiser from the Clone Wars." },
+  { id: "75349", name: "Captain Rex™ Helmet", theme: "Star Wars™", category: "starwars", price: 69.99, age: "18+", image: "https://images.brickset.com/sets/images/75349-1.jpg", description: "Buildable helmet of Captain Rex." },
+  { id: "75407", name: "Brick-Built Star Wars™ Logo", theme: "Star Wars™", category: "starwars", price: 59.99, age: "18+", image: "https://images.brickset.com/sets/images/75407-1.jpg", description: "3D brick-built Star Wars logo for display." },
+  { id: "75375", name: "Millennium Falcon™", theme: "Star Wars™", category: "starwars", price: 84.99, age: "18+", image: "https://images.brickset.com/sets/images/75375-1.jpg", description: "A compact version of the iconic Millennium Falcon from Star Wars." },
+  { id: "75430", name: "Wicket the Ewok™", theme: "Star Wars™", category: "starwars", price: 129.99, age: "12+", image: "https://images.brickset.com/sets/images/75430-1.jpg", description: "Buildable figure of Wicket the Ewok from Star Wars." },
+  { id: "75333", name: "Obi-Wan Kenobi’s Jedi Starfighter™", theme: "Star Wars™", category: "starwars", price: 29.99, age: "7+", image: "https://images.brickset.com/sets/images/75333-1.jpg", description: "A small starfighter model featuring Obi-Wan Kenobi." },
+  { id: "75448", name: "Clone Shock Trooper™ Mech", theme: "Star Wars™", category: "starwars", price: 14.99, age: "6+", image: "https://images.brickset.com/sets/images/75448-1.jpg", description: "A mech model with Clone Shock Trooper minifigure." },
+  { id: "75413", name: "Republic Juggernaut", theme: "Star Wars™", category: "starwars", price: 159.99, age: "9+", image: "https://images.brickset.com/sets/images/75413-1.jpg", description: "A large Republic Juggernaut vehicle from Star Wars." },
+  { id: "75429", name: "AT-AT Driver™ Helmet", theme: "Star Wars™", category: "starwars", price: 69.99, age: "18+", image: "https://images.brickset.com/sets/images/75429-1.jpg", description: "A buildable helmet model of an AT-AT Driver." },
+  { id: "75381", name: "Droideka™", theme: "Star Wars™", category: "starwars", price: 64.99, age: "18+", image: "https://images.brickset.com/sets/images/75381-1.jpg", description: "A buildable Droideka droid model from Star Wars." },
+  { id: "75443", name: "Grogu's Homestead", theme: "Star Wars™", category: "starwars", price: 19.99, age: "4+", image: "https://images.brickset.com/sets/images/75443-1.jpg", description: "A small homestead model for Grogu from The Mandalorian." },
+  { id: "75337", name: "AT-TE™ Walker", theme: "Star Wars™", category: "starwars", price: 139.99, age: "9+", image: "https://images.brickset.com/sets/images/75337-1.jpg", description: "A buildable AT-TE Walker from Star Wars." },
+  { id: "75415", name: "Kylo Ren™ Helmet", theme: "Star Wars™", category: "starwars", price: 69.99, age: "18+", image: "https://images.brickset.com/sets/images/75415-1.jpg", description: "A buildable helmet model of Kylo Ren." },
+];
+
+function formatPrice(p) { return "$" + p.toFixed(2); }
+
+const heroSection = document.getElementById("hero-section");
+const catalogSection = document.getElementById("catalog-section");
+const detailSection = document.getElementById("product-detail");
+const checkoutSection = document.getElementById("checkout-page");
+const productGrid = document.getElementById("product-grid");
+const searchInput = document.getElementById("search-input");
+const cartCount = document.getElementById("cart-count");
+const checkoutItems = document.getElementById("checkout-items");
+const checkoutTotalSpan = document.getElementById("checkout-total");
+
+let currentCategory = "all";
+let lastCheckoutTotal = 0;
+
+const cart = {};
+
+function updateCartCount() {
+  const totalQty = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
+  cartCount.textContent = totalQty;
+}
+
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+  if (!product) return;
+  if (!cart[id]) cart[id] = { product, qty: 1 };
+  else cart[id].qty += 1;
+  updateCartCount();
+  alert(`Added ${product.name} to cart!`);
+}
+
+function renderProducts(category = "all", searchTerm = "") {
+  productGrid.innerHTML = "";
+  const term = searchTerm.trim().toLowerCase();
+  const filtered = products.filter(p => {
+    const matchCat = category === "all" || p.category === category;
+    const matchTerm = !term || p.name.toLowerCase().includes(term) || p.theme.toLowerCase().includes(term) || p.id.toLowerCase().includes(term);
+    return matchCat && matchTerm;
+  });
+  if (filtered.length === 0) {
+    productGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 2rem;">No sets found.</p>';
+    return;
+  }
+  filtered.forEach(p => {
+    const card = document.createElement("article");
+    card.className = "product-card";
+    card.innerHTML = `
+      <div class="product-image">
+        <img src="${p.image}" alt="${p.name}"
+          onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjlmOWY5Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkxlZ28gU2V0PC90ZXh0Pjwvc3ZnPg=='">
+      </div>
+      <div class="product-title">${p.name}</div>
+      <div class="product-meta">
+        <span>${p.theme}</span>
+        <span class="age-badge">${p.age}</span>
+      </div>
+      <div class="product-price">${formatPrice(p.price)}</div>
+      <div class="product-actions">
+        <button class="btn-add" data-id="${p.id}">Add to Cart</button>
+        <button class="btn-details" data-id="${p.id}">Details</button>
+      </div>
+    `;
+    card.querySelector(".btn-add").onclick = () => addToCart(p.id);
+    card.querySelector(".btn-details").onclick = () => navigateToProduct(p.id);
+    productGrid.appendChild(card);
+  });
+}
+
+function setCategory(cat) {
+  currentCategory = cat;
+  renderProducts(cat, searchInput.value);
+  document.querySelectorAll(".filter-tab").forEach(btn => btn.classList.toggle("active", btn.dataset.category === cat));
+  document.querySelectorAll(".nav-tab").forEach(btn => btn.classList.toggle("active", btn.dataset.target === cat));
+}
+
+document.querySelectorAll(".filter-tab, .nav-tab").forEach(btn => {
+  btn.onclick = () => {
+    setCategory(btn.dataset.category || btn.dataset.target);
+    showCatalog();
+  };
+});
+
+searchInput.addEventListener("input", () => renderProducts(currentCategory, searchInput.value));
+document.getElementById("hero-shop-all").onclick = () => { showCatalog(); setCategory("all"); };
+document.getElementById("hero-star-wars").onclick = () => { showCatalog(); setCategory("starwars"); };
+
+function showCatalog() {
+  [heroSection, catalogSection].forEach(el => el.classList.remove("hidden"));
+  [detailSection, checkoutSection].forEach(el => el.classList.add("hidden"));
+  location.hash = "#home";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function showProduct(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return showCatalog();
+  [catalogSection, checkoutSection, heroSection].forEach(el => el.classList.add("hidden"));
+  detailSection.classList.remove("hidden");
+  document.getElementById("detail-image").src = p.image;
+  document.getElementById("detail-title").textContent = p.name;
+  document.getElementById("detail-theme").textContent = p.theme;
+  document.getElementById("detail-price").textContent = formatPrice(p.price);
+  document.getElementById("detail-age").textContent = p.age;
+  document.getElementById("detail-description").textContent = p.description;
+  document.getElementById("detail-add-to-cart").onclick = () => addToCart(p.id);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.getElementById("detail-back-link").onclick = (e) => {
+  e.preventDefault();
+  showCatalog();
+};
+
+function renderCheckout() {
+  checkoutItems.innerHTML = "";
+  const ids = Object.keys(cart);
+  if (ids.length === 0) {
+    checkoutItems.innerHTML = '<p>Your cart is empty.</p>';
+    checkoutTotalSpan.textContent = "$0.00";
+    return;
+  }
+  let total = 0;
+  ids.forEach(id => {
+    const item = cart[id];
+    const line = item.product.price * item.qty;
+    total += line;
+    const row = document.createElement("div");
+    row.innerHTML = `<span>${item.qty}× ${item.product.name}</span><span>${formatPrice(line)}</span>`;
+    checkoutItems.appendChild(row);
+  });
+  checkoutTotalSpan.textContent = formatPrice(total);
+  lastCheckoutTotal = total;
+}
+
+function showCheckout() {
+  [heroSection, catalogSection, detailSection].forEach(el => el.classList.add("hidden"));
+  checkoutSection.classList.remove("hidden");
+  renderCheckout();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.getElementById("go-checkout").onclick = showCheckout;
+
+// Billing toggle
+const sameAsShippingCheckbox = document.getElementById("same-as-shipping");
+const billingFields = document.getElementById("billing-fields");
+
+sameAsShippingCheckbox.addEventListener("change", () => {
+  billingFields.style.display = sameAsShippingCheckbox.checked ? "none" : "block";
+});
+
+document.getElementById("checkout-form").onsubmit = (e) => {
+  e.preventDefault();
+  if (lastCheckoutTotal <= 0) return alert("Cart empty.");
+
+  const email = document.getElementById("co-email").value;
+
+  const shipping = {
+    firstName: document.getElementById("ship-first").value,
+    lastName: document.getElementById("ship-last").value,
+    address1: document.getElementById("ship-address1").value,
+    address2: document.getElementById("ship-address2").value,
+    city: document.getElementById("ship-city").value,
+    state: document.getElementById("ship-state").value,
+    zip: document.getElementById("ship-zip").value,
+    country: document.getElementById("ship-country").value,
+    notes: document.getElementById("ship-notes").value,
+  };
+
+  let billing = null;
+  if (!sameAsShippingCheckbox.checked) {
+    billing = {
+      firstName: document.getElementById("bill-first").value,
+      lastName: document.getElementById("bill-last").value,
+      address1: document.getElementById("bill-address1").value,
+      address2: document.getElementById("bill-address2").value,
+      city: document.getElementById("bill-city").value,
+      state: document.getElementById("bill-state").value,
+      zip: document.getElementById("bill-zip").value,
+      country: document.getElementById("bill-country").value,
+    };
+  }
+
+  const orderData = {
+    cart,
+    total: lastCheckoutTotal,
+    customer: { email, shipping, billing },
+    createdAt: new Date().toISOString()
+  };
+
+  sessionStorage.setItem("order", JSON.stringify(orderData));
+  window.location.href = `https://paypal.me/thebrickstorerg/${lastCheckoutTotal.toFixed(2)}`;
+};
+
+function handleHash() {
+  const h = location.hash;
+  if (h.startsWith("#product=")) showProduct(decodeURIComponent(h.slice(9)));
+  else if (h === "#checkout") showCheckout();
+  else showCatalog();
+}
+
+window.addEventListener("hashchange", handleHash);
+
+function navigateToProduct(id) {
+  location.hash = `#product=${encodeURIComponent(id)}`;
+}
+
+renderProducts();
+handleHash();
+updateCartCount();
+</script>
+</body>
+</html>
